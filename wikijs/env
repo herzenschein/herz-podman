@@ -1,11 +1,13 @@
-POSTGRES_PASSWORD=wikijsrocks
-POSTGRES_USER=wikijs
-POSTGRES_DB=wiki
-POSTGRES_HOST=localhost
-DB_TYPE=postgres
-DB_PORT=5432
-DB_USER=wikijs
-DB_NAME=wiki
-DB_PASS=wikijsrocks
-PORT=3000
+# Ports
+POSTGRES_PORT=5432
+MYSQL_PORT=3306
+WIKIJS_PORT=3000
 HOST_PORT=3000 # <-- The host port to be used for WikiJS
+
+# Database
+DB_NAME=wiki
+DB_PASSWORD=wikijsrocks
+DB_USER=wikijs
+DB_TYPE=postgres # <-- The type of database used: postgres, mariadb, mysql, sqlite
+DB_PORT=${POSTGRES_PORT} # <-- Change this to the desired database port variable
+SQLITE_DB=dbdata

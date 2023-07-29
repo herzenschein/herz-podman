@@ -13,15 +13,46 @@ services:
     image: docker.io/postgres
     container_name: wikijs-db
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    logging:
-      driver: "none"
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     restart: unless-stopped
-    ports: "${DB_PORT}:${DB_PORT}"
+    ports: "${POSTGRES_PORT}:${POSTGRES_PORT}"
     volumes:
       - dbdata:/var/lib/postgresql/data:Z
+
+  # database:
+  #   image: docker.io/mariadb
+  #   container_name: wikijs-db
+  #   environment:
+  #     MARIADB_DATABASE: ${DB_NAME}
+  #     MARIADB_USER: ${DB_USER}
+  #     MARIADB_PASSWORD: ${DB_PASSWORD}
+  #     MARIADB_RANDOM_ROOT_PASSWORD: yes
+  #   restart: unless-stopped
+  #   ports: "${MYSQL_PORT}:${MYSQL_PORT}"
+  #   volumes:
+  #     - dbdata:/var/lib/mysql:Z
+
+  # database:
+  #   image: docker.io/mysql
+  #   container_name: wikijs-db
+  #   environment:
+  #     MYSQL_DATABASE: ${DB_NAME}
+  #     MYSQL_USER: ${DB_USER}
+  #     MYSQL_PASSWORD: ${DB_PASSWORD}
+  #     MYSQL_RANDOM_ROOT_PASSWORD: yes
+  #   restart: unless-stopped
+  #   ports: "${MYSQL_PORT}:${MYSQL_PORT}"
+  #   volumes:
+  #     - dbdata:/var/lib/mysql:Z
+
+  # database:
+  #   image: docker.io/nouchka/sqlite3
+  #   container_name: wikijs-db
+  #   restart: unless-stopped
+  #   volumes:
+  #     - dbdata:/root/db:Z
 
   wiki:
     image: docker.io/requarks/wiki
@@ -32,11 +63,12 @@ services:
       DB_TYPE: ${DB_TYPE}
       DB_PORT: ${DB_PORT}
       DB_HOST: wikijs-db
-      DB_NAME: ${POSTGRES_DB}
-      DB_USER: ${POSTGRES_USER}
-      DB_PASS: ${POSTGRES_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASSWORD}
+      DB_FILEPATH: ${SQLITE_DB}
     restart: unless-stopped
     ports:
-      - "${HOST_PORT}:${PORT}"
+      - "${HOST_PORT}:${WIKIJS_PORT}"
     volumes:
       - content:/wiki/data/content:Z
