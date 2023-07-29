@@ -21,7 +21,8 @@ Alter the values in wikijs-configmap.yaml, then run:
 podman play kube wikijs-kube.yaml --configmap wikijs-configmap.yaml
 ```
 
-You may also specify the host port to be used for a specific container port (port 3000 from WikiJS is exposed as 3500 on the host):
+You may also specify the host port to be used for a specific container port
+(port 3000 from WikiJS is exposed as 3500 on the host):
 
 ```bash
 podman play kube wikijs-kube.yaml --configmap wikijs-configmap.yaml --publish 3500:3000
