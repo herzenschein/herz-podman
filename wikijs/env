@@ -7,6 +7,5 @@ DB_PORT=5432
 DB_USER=wikijs
 DB_NAME=wiki
 DB_PASS=wikijsrocks
-DB_HOST=localhost
 PORT=3000
 HOST_PORT=3000 # <-- The host port to be used for WikiJS

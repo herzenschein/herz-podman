@@ -31,7 +31,7 @@ services:
     environment:
       DB_TYPE: ${DB_TYPE}
       DB_PORT: ${DB_PORT}
-      DB_HOST: database
+      DB_HOST: wikijs-db
       DB_NAME: ${POSTGRES_DB}
       DB_USER: ${POSTGRES_USER}
       DB_PASS: ${POSTGRES_PASSWORD}
