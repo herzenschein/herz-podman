@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: pod_wikijs
+  labels:
+    app: pod_wikijs
+
+spec:
+  containers:
+  - args:
+    - postgres
+    image: docker.io/library/postgres:latest
+    name: wikijs-db
+    envFrom:
+      - configMapRef:
+          name: wikijs-configmap
+    ports:
+    - containerPort: 5432
+    volumeMounts:
+    - mountPath: /var/lib/postgresql/data
+      name: wikijs-dbdata-pvc
+  - args:
+    - node
+    - server
+    image: docker.io/requarks/wiki:latest
+    name: wikijs
+    envFrom:
+      - configMapRef:
+          name: wikijs-configmap
+    ports:
+    - containerPort: 3000
+    securityContext: {}
+    volumeMounts:
+    - mountPath: /wiki/data/content
+      name: wikijs-content-pvc
+  volumes:
+  - name: wikijs-dbdata-pvc
+    persistentVolumeClaim:
+      claimName: wikijs-dbdata
+  - name: wikijs-content-pvc
+    persistentVolumeClaim:
+      claimName: wikijs-content
+

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wikijs-configmap
+data:
+  POSTGRES_PASSWORD: wikijsrocks
+  POSTGRES_USER: wikijs
+  POSTGRES_DB: wiki
+  POSTGRES_HOST: localhost
+  DB_TYPE: postgres
+  DB_PORT: 5432
+  DB_USER: wikijs
+  DB_NAME: wiki
+  DB_PASS: wikijsrocks
+  DB_HOST: localhost
+  PORT: 3000
