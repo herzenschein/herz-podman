@@ -37,6 +37,6 @@ services:
       DB_PASS: ${POSTGRES_PASSWORD}
     restart: unless-stopped
     ports:
-      - "${PORT}:${PORT}"
+      - "${HOST_PORT}:${PORT}"
     volumes:
       - content:/wiki/data/content:Z
