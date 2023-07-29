@@ -2,7 +2,7 @@
 
 ### podman-compose
 
-Alter the values in env, then run:
+Install `aardvark-dns`. Alter the values in env, then run:
 
 ```bash
 podman-compose --project-name wikijs --in-pod 1 --env-file env up --detach
