@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  database:
+    image: docker.io/postgres
+    container_name: wikijs-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    logging:
+      driver: "none"
+    restart: unless-stopped
+    ports: "${DB_PORT}:${DB_PORT}"
+
+  wiki:
+    image: docker.io/requarks/wiki
+    container_name: wikijs
+    depends_on:
+      - database
+    environment:
+      DB_TYPE: ${DB_TYPE}
+      DB_PORT: ${DB_PORT}
+      DB_HOST: database
+      DB_NAME: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASS: ${POSTGRES_PASSWORD}
+    restart: unless-stopped
+    ports:
+      - "${PORT}:${PORT}"
