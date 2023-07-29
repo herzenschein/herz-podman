@@ -3,14 +3,24 @@ kind: ConfigMap
 metadata:
   name: wikijs-configmap
 data:
-  POSTGRES_PASSWORD: wikijsrocks
-  POSTGRES_USER: wikijs
+  # Postgres
   POSTGRES_DB: wiki
-  POSTGRES_HOST: localhost
-  DB_TYPE: postgres
-  DB_PORT: 5432
+  POSTGRES_USER: wikijs
+  POSTGRES_PASSWORD: wikijsrocks
+
+  # MariaDB / MySQL
+  # MYSQL_DATABASE: wiki
+  # MYSQL_USER: wikijs
+  # MYSQL_PASSWORD: wikijsrocks
+  # MYSQL_RANDOM_ROOT_PASSWORD: "True"
+
+  # Database generics
+  DB_TYPE: postgres # <-- Type of database used: postgres, mariadb, mysql, sqlite
+  DB_PORT: 3306 # <-- MariaDB/MySQL use 3306, SQLite uses no port
   DB_USER: wikijs
   DB_NAME: wiki
   DB_PASS: wikijsrocks
   DB_HOST: localhost
+
+  # WikiJS
   PORT: 3000

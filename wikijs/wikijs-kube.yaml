@@ -8,9 +8,10 @@ metadata:
 
 spec:
   containers:
+
   - args:
     - postgres
-    image: docker.io/library/postgres:latest
+    image: docker.io/postgres
     name: wikijs-db
     envFrom:
       - configMapRef:
@@ -20,6 +21,39 @@ spec:
     volumeMounts:
     - mountPath: /var/lib/postgresql/data
       name: wikijs-dbdata-pvc
+
+  # - args:
+  #   - mariadbd
+  #   image: docker.io/mariadb
+  #   name: wikijs-db
+  #   envFrom:
+  #     - configMapRef:
+  #         name: wikijs-configmap
+  #   ports:
+  #   - containerPort: 3306
+  #   volumeMounts:
+  #   - mountPath: /var/lib/mysql
+  #     name: wikijs-dbdata-pvc
+
+  # - args:
+  #   - mysqld
+  #   image: docker.io/mysql
+  #   name: wikijs-db
+  #   envFrom:
+  #     - configMapRef:
+  #         name: wikijs-configmap
+  #   ports:
+  #   - containerPort: 3306
+  #   volumeMounts:
+  #   - mountPath: /var/lib/mysql
+  #     name: wikijs-dbdata-pvc
+
+  # - image: docker.io/nouchka/sqlite3
+  #   name: wikijs-db
+  #   volumeMounts:
+  #   - mountPath: /root/db
+  #     name: wikijs-dbdata-pvc
+
   - args:
     - node
     - server
@@ -34,6 +68,7 @@ spec:
     volumeMounts:
     - mountPath: /wiki/data/content
       name: wikijs-content-pvc
+
   volumes:
   - name: wikijs-dbdata-pvc
     persistentVolumeClaim:
