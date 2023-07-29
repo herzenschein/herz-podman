@@ -1,5 +1,13 @@
 version: "3"
 
+volumes:
+  dbdata:
+    name: "wikijs-dbdata"
+    #external: true
+  content:
+    name: "wikijs-content"
+    #external: true
+
 services:
   database:
     image: docker.io/postgres
@@ -12,6 +20,8 @@ services:
       driver: "none"
     restart: unless-stopped
     ports: "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - dbdata:/var/lib/postgresql/data:Z
 
   wiki:
     image: docker.io/requarks/wiki
@@ -28,3 +38,5 @@ services:
     restart: unless-stopped
     ports:
       - "${PORT}:${PORT}"
+    volumes:
+      - content:/wiki/data/content:Z
