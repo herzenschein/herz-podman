@@ -1,0 +1,48 @@
+version: "3"
+
+volumes:
+  web-keys:
+    # external: true
+  db-data:
+    # external: true
+  writefreely-config.ini:
+    external: true
+
+networks:
+  writefreely:
+
+services:
+  writefreely-db:
+    container_name: writefreely-db
+    image: docker.io/mariadb:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql/writefreely:Z
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_DATABASE=writefreelydb
+      - MYSQL_USER=writefreely
+      - MYSQL_PASSWORD=writefreelypass
+       # MYSQL_HOST points to itself, which matches the service name
+       # "writefreely-db" in Podman DNS resolution
+      - MYSQL_HOST=localhost
+    # Required only for Docker, as Podman uses pods for networking instead
+    # networks:
+    #   - writefreely
+    restart: unless-stopped
+
+  writefreely-web:
+    container_name: writefreely-web
+    image: docker.io/writeas/writefreely
+    volumes:
+      - web-keys:/go/keys:Z
+      - ./writefreely-config.ini:/go/config.ini:Z
+    ports:
+      - 8080:8080
+    depends_on:
+      - writefreely-db
+    # Required only for Docker, as Podman uses pods for networking instead
+    # networks:
+    #   - writefreely
+    restart: unless-stopped
