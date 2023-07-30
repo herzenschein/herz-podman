@@ -29,8 +29,8 @@ podman play kube owncast-kube.yaml
 ```
 
 You may also specify the host port to be used for a specific container port
-(for example, port 8080 from WikiJS exposed as 80 on the host and port 1935
-exposed as port 2000 on the host):
+(for example, port 8080 from Owncast exposed as 80 on the host and port 1935
+used for RTMP exposed as port 2000 on the host):
 
 ```bash
 podman play kube owncast-kube.yaml --publish 80:8080 --publish 2000:1935
