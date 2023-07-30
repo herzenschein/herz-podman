@@ -12,7 +12,7 @@ podman-compose --project-name wikijs --in-pod 1 --env-file env up --detach
 
 Set `external: true` in compose.yaml if you want to create the desired volume
 instead of letting podman-compose do it. In this case, the service name
-(e.g. dbdata) is only used to be referenced inside the compose.yaml, while
+(e.g. dbdata) is only used to be referenced inside the compose.yaml, while the
 `name:` value will be used for the pre-existing volume that podman will search for.
 
 ### podman-play-kube
