@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod_owncast
+  labels:
+    app: pod_owncast
+spec:
+  containers:
+  - image: docker.io/owncast/owncast
+    name: owncast
+    ports:
+    - containerPort: 1935
+    - containerPort: 8080
+    volumeMounts:
+    - mountPath: /app/data
+      name: owncast_data-pvc
+  volumes:
+  - name: owncast_data-pvc
+    persistentVolumeClaim:
+      claimName: owncast_data
+

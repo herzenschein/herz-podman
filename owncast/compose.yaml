@@ -1,0 +1,17 @@
+version: "3"
+
+volumes:
+  data:
+    #external: true
+
+services:
+
+  owncast:
+    image: docker.io/owncast/owncast
+    container_name: owncast
+    restart: unless-stopped
+    ports:
+      - "${HOST_OWNCAST_PORT}:${OWNCAST_PORT}"
+      - "${HOST_RTMP_PORT}:${RTMP_PORT}"
+    volumes:
+      - data:/app/data:Z

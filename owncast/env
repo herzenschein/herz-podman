@@ -1,0 +1,5 @@
+# Ports
+HOST_OWNCAST_PORT=8080 # <-- The interface for Owncast
+HOST_RTMP_PORT=1935 # <-- The port used for streaming software (OBS etc.)
+OWNCAST_PORT=8080
+RTMP_PORT=1935
