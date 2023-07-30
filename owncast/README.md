@@ -25,7 +25,7 @@ instead of letting podman-compose do it. In this case, the service name
 Run:
 
 ```bash
-podman play kube owncast-kube.yaml --configmap owncast-configmap.yaml
+podman play kube owncast-kube.yaml
 ```
 
 You may also specify the host port to be used for a specific container port
@@ -33,5 +33,5 @@ You may also specify the host port to be used for a specific container port
 exposed as port 2000 on the host):
 
 ```bash
-podman play kube owncast-kube.yaml --configmap owncast-configmap.yaml --publish 80:8080 --publish 2000:1935
+podman play kube owncast-kube.yaml --publish 80:8080 --publish 2000:1935
 ```
