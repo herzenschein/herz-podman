@@ -1,6 +1,6 @@
 ## WikiJS Deployment
 
-[WikiJS](https://js.wiki/) is a selfhosted Markdown wiki written in Go and React.
+[WikiJS](https://js.wiki/) is a selfhosted Markdown wiki written in Vue and Node.
 
 ### podman-compose
 
