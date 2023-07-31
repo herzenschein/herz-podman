@@ -3,13 +3,11 @@
 [WriteFreely](https://writefreely.org/) is a selfhosted, Fediverse-enabled
 blog platform for writers, written in Go.
 
-This is a WIP.
+This is a WIP. With these steps, the current error that I get is:
 
 ```
-ERROR: 2023/07/31 04:24:04 database.go:808: Failed selecting from collections: Error 1054: Unknown column 'post_signature' in 'field list'
+ERROR: 2023/07/30 22:19:13 database.go:808: Failed selecting from collections: Error 1146: Table 'writefreelydb.collections' doesn't exist
 ```
-
-This seems to be an upstream database error.
 
 Furthermore, WriteFreely only pings once to see if the database is available.
 This does not match well with the async behavior of docker-compose and
@@ -35,26 +33,13 @@ container:
 podman run --name writefreely --rm --interactive --tty --mount type=bind,source=./writefreely-config.ini,destination=/go/config.ini,rw docker.io/writeas/writefreely:latest config generate
 ```
 
-The `schema.sql` file in this folder is from
-`wget https://raw.githubusercontent.com/writefreely/writefreely/develop/schema.sql`.
-It is mounted inside `/tmp/schema.sql` in the database container.
-
 Finally, run:
 
 ```bash
 podman-compose --project-name writefreely --in-pod 1 up --detach
 ```
 
-To write the schema.sql to the database, run:
-
-```bash
-podman-compose exec writefreely-db sh -c 'exec mariadb --user=writefreely --password=writefreelypass writefreelydb < /tmp/schema.sql'
-```
-
-Without it, you get `Error 1146: Table 'writefreelydb.collections' doesn't exist`.
-
-The writefreely-web container will fail because it pinged once before
-the database finished initializing. Just start it again:
+The writefreely-web container will fail because it pinged once. Just start it again:
 
 ```bash
 podman start writefreely-web
