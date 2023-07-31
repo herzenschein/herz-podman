@@ -6,7 +6,8 @@ blog platform for writers, written in Go.
 This is a WIP. With these steps, the current error that I get is:
 
 ```
-ERROR: 2023/07/30 22:19:13 database.go:808: Failed selecting from collections: Error 1146: Table 'writefreelydb.collections' doesn't exist
+LC_ALL=C curl http://localhost:8080
+curl: (56) Recv failure: Connection reset by peer
 ```
 
 Furthermore, WriteFreely only pings once to see if the database is available.
@@ -39,7 +40,18 @@ Finally, run:
 podman-compose --project-name writefreely --in-pod 1 up --detach
 ```
 
-The writefreely-web container will fail because it pinged once. Just start it again:
+You will need to initialize the database using a disposable writefreely container
+connecting to the database. Specifying the network is needed here:
+
+```bash
+podman run --pod pod_writefreely --network writefreely_writefreely --name writefreely --rm --interactive --tty --mount type=bind,source=./writefreely-config.ini,destination=/go/config.ini,rw docker.io/writeas/writefreely:latest db init
+```
+
+If the database is not initialized, you get
+`Error 1146: Table 'writefreelydb.collections' doesn't exist`.
+
+The writefreely-web container will have failed because it pinged once before
+the database was fully initialized. Just start it again:
 
 ```bash
 podman start writefreely-web
