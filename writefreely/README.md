@@ -35,8 +35,8 @@ podman run --name writefreely --rm --interactive --tty --mount type=bind,source=
 ```
 
 Change the ini file to set your website. Make sure that the user, password and
-database are correct and that the host matches the database service name,
-as in the example file provided here.
+database follow the compose file and that the host matches the database
+service name, as in the example file provided here.
 
 Finally, run:
 
