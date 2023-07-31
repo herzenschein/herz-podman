@@ -44,7 +44,7 @@ You will need to initialize the database using a disposable writefreely containe
 connecting to the database. Specifying the network is needed here:
 
 ```bash
-podman run --pod pod_writefreely --network writefreely_writefreely --name writefreely --rm --interactive --tty --mount type=bind,source=./writefreely-config.ini,destination=/go/config.ini,rw docker.io/writeas/writefreely:latest db init
+podman run --pod pod_writefreely --network writefreely_writefreely --name writefreely --rm --interactive --tty --mount type=bind,source=./writefreely-config.ini,destination=/go/config.ini,rw,relabel=private docker.io/writeas/writefreely:latest db init
 ```
 
 If the database is not initialized, you get
