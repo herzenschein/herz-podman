@@ -10,10 +10,8 @@ the container is able to access it:
 
 ```bash
 touch writefreely-config.ini
-chmod 777 writefreely-config.ini
+chmod 606 writefreely-config.ini
 ```
-
-TODO: improve permission handling
 
 Generate a config file in the current directory using a temporary WriteFreely
 container:
